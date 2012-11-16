@@ -1,1 +1,12 @@
-April 18 -- this is the initial contribution
+November 16th-
+
+The package dwcodebook is a simple DataWeb like codebook generator. The idea is to start with a dataframe and create a variable description dataframe as if you were creating an annotateddataframe.
+This description file is currently defined as having at least 4 columns (var, label, form[or other info], group1). The form column can be blank. The group columns are named and should contain TRUE/FALSE for group membership.
+The function createcb will then create a codebook by sorting the variables into the groups specified and then create a histogram or table depending on the number of different observations.
+The function will then compile the codebook and add the index. It is important that Sweave.sty be in your search path. If it is not, then you can fix that by creating a directory
+"~/latex" and adding the following to your .bashrc
+
+export TEXINPUTS=".:~/latex/:"
+export BIBINPUTS=".:~/latex/:"
+
+Future versions will help create the variable index from a sas proc contents, text file, or just manual entry.
