@@ -1,0 +1,143 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage[tableposition=top]{caption}
+\usepackage{ifthen}
+\usepackage[utf8]{inputenc}
+\usepackage[hmargin=2cm,vmargin=2.5cm]{geometry}
+\usepackage{pdflscape}
+\usepackage{makeidx}
+\usepackage[bookmarks]{hyperref}
+\newcommand{\boldidx}[1]{{\bf #1}}
+
+% Alter some LaTeX defaults for better treatment of figures:
+    % See p.105 of "TeX Unbound" for suggested values.
+    % See pp. 199-200 of Lamport's "LaTeX" book for details.
+    %   General parameters, for ALL pages:
+    \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+    \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    \setcounter{dbltopnumber}{2}    % for 2-column pages
+    \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+    \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+	% N.B.: floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+	% remember to use [htp] or [htpb] for placement
+    
+    \makeindex
+    \begin{document}
+    \title{REPLACETITLE}
+    \maketitle
+    
+    \tableofcontents
+    
+    \clearpage
+    
+    
+<<getd,echo=FALSE,results=hide>>=
+
+library(xtable)
+library(ggplot2)
+
+#temp directory to place pdfpicsin
+dir.create("REPLACEDIR/")
+
+@
+
+
+<<doloop,results=tex,echo=FALSE>>=
+
+for(j in 4:ncol(REPLACEDD)) {
+  
+  #The columns 4:n should contain section information with TRUE/FALSE
+  #create a new section
+  cat(paste("\\newpage\\section{",names(REPLACEDD)[j],"}\\begin{center}\\begin{tabular}{cc}",sep=""))
+  #subset only variables in that section
+  tempdata = subset(REPLACEDD, REPLACEDD[,j])
+  #loop through the variables in the section
+  for (i in 1:length(tempdata[,1])) {
+    #runt decides if a table should be created
+    runt=FALSE;
+    #name is the name of the variable
+    name = tempdata[i,1]
+    #des is the description
+    des = tempdata[i,2]
+    #if there are less than 6 values in the dataset for that variable, create a table
+    if (length(table(REPLACEDATA[[name]])) <= 6){
+      runt=TRUE;
+      id = as.factor(REPLACEDATA[[name]])}else{
+        id = REPLACEDATA[[name]]
+      }
+    
+    #These are the routines to clean up name issues
+    newname = name
+    newname = gsub("\\.", "_", newname)
+    newname = gsub(" ", "_", newname)
+    newname2 = gsub("_", "\\\\_", name)
+    
+    #clean up descriptions
+    newdes = gsub("%", "\\\\%", des)
+    newdes = gsub("#", "\\\\#", newdes)
+    newdes = gsub("\\$", "\\\\$", newdes)
+    newdes = gsub("_", "\\\\_", newdes)
+    newdes = gsub(">", "$>$", newdes)
+    newdes = gsub("<", "$<$", newdes)
+    
+   
+    #if you need to make a table
+    if(runt){
+      cat("\n\\begin{tabular}{p{6.5cm}}")
+      rtab=xtable(table(REPLACEDATA[[name]]))
+      cat("\\index{",newname2,"|boldidx}")
+      cat("\\textbf{", newname2, "}","\\\\")
+      cat(newdes,"\\\\")
+      cat("\\vspace{3mm}\n");      
+                                        
+      cat("\\parbox[t][5.5cm][t]{6cm}{");
+      print(rtab,floating=FALSE,include.colnames=FALSE,hline.after=c(0,nrow(rtab)));
+      cat("}\n");
+                                       
+      cat("\\\\");
+      cat("\\end{tabular}","\n\n")
+    }
+    
+    #if you are making a plot
+    if(!runt){
+      
+       #start plot
+      myplot = qplot(x=id, data=data.frame(id), geom="histogram", colour=I("black"), fill=I("white")) + xlab(name) + opts(axis.title.x = theme_text(face="bold", size=20), axis.text.x  = theme_text(angle=45, hjust=1.0, vjust=1.0, size=16)) + opts(axis.title.y = theme_text(angle=90, face="bold", size=20), axis.text.y  = theme_text(hjust=1.2, size=16)) + opts(legend.position="none")
+      pdf(pdftfn <- paste("REPLACEDIR/",newname, "-pic.pdf", sep=""))
+      print(myplot)
+      dev.off()
+    
+      
+      #format the cell
+      cat("\n\\begin{tabular}{p{6.5cm}}")
+      cat("\\index{",newname2,"|boldidx}")
+      cat("\\textbf{", newname2, "}\\\\")
+      cat(newdes, "\\\\")
+      cat(paste("\\includegraphics[width=6cm]{",pdftfn,"}", sep=""));
+      cat("\\end{tabular}")
+    }
+    
+    
+    #format fixes for table
+    if (i%%2==0 & i%%6!=0 & i!=length(tempdata[,1])) cat("\\\\")
+    if (i%%2!=0 & i!=length(tempdata[,1])) cat("&")
+    if (i%%6==0 & length(tempdata[,1])) cat("\n\\end{tabular}\n\\end{center}\n\\newpage\n\\begin{center}\n\\begin{tabular}{cc}")
+    if (i==length(tempdata[,1]) & i%%2==0) cat("\n\\end{tabular}\n\\end{center}")
+    if (i==length(tempdata[,1]) & i%%2!=0) cat("&\n\\end{tabular}\n\\end{center}")	
+  }
+}
+@
+
+\section{Index}
+\printindex
+\end{document}
