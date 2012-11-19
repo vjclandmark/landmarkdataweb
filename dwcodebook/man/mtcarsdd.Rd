@@ -11,9 +11,9 @@ Variable description of the dataset mtcars included as an example.
 \format{
   A data frame with 11 observations on the following 5 variables.
   \describe{
-    \item{\code{var}}{a character vector with values \code{am} \code{carb} \code{cyl} \code{disp} \code{drat} \code{gear} \code{hp} \code{mpg} \code{qsec} \code{vs} \code{wt}}
-    \item{\code{label}}{a character vector with values \code{1/4 mile time} \code{Displacement (cu.in.)} \code{Gross horsepower} \code{Miles/(US) gallon} \code{Number of carburetors} \code{Number of cylinders} \code{Number of forward gears} \code{Rear axle ratio} \code{Transmission (0 = automatic 1 = manual)} \code{V/S} \code{Weight (lb/1000)}}
-    \item{\code{form}}{a logical vector}
+    \item{\code{var}}{a character vector}
+    \item{\code{label}}{a character vector}
+    \item{\code{form}}{a character vector}
     \item{\code{group1}}{a logical vector}
     \item{\code{group2}}{a logical vector}
   }
