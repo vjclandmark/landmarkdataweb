@@ -7,7 +7,7 @@
 This function creates a simple codebook from a dataframe and a variable describing data frame using a simple template
 }
 \usage{
-createcb(title = "My Codebook", datasetname, vardataname, rundir = getwd(), tempdir = paste(getwd(), "/temp/", sep = ""), fname = "mycodebook")
+createcb(title = "My Codebook", datasetname, vardataname, rundir = getwd(), tempdir = paste(getwd(), "/cbtemp/", sep = ""), fname = "mycodebook")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -58,7 +58,7 @@ BJ Harshfield, Ariana Huebner
 
 ## The function is currently defined as
 function (title = "My Codebook", datasetname, vardataname, rundir = getwd(), 
-    tempdir = paste(getwd(), "/temp/", sep = ""), fname = "mycodebook") 
+    tempdir = paste(getwd(), "/cbtemp/", sep = ""), fname = "mycodebook") 
 {
     cmd = paste("perl ", system.file(package = "dwcodebook", 
         "template/updatecb.pl"), " \"", title, "\"", " \"", datasetname, 
