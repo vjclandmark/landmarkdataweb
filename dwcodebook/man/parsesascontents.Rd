@@ -1,5 +1,5 @@
-\name{parsecontents}
-\alias{parsecontents}
+\name{parsesascontents}
+\alias{parsesascontents}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Parse a SAS contents file to create a data dictionary.
@@ -10,7 +10,7 @@ The output will require at least 1 more column with a group name to be used with
 If you do not need groups, then set addallvar=TRUE to create one group with all variables.
 }
 \usage{
-parsecontents(ifile, ofile,addallvars=FALSE)
+parsesascontents(ifile, ofile,addallvars=FALSE)
 
 ifile: a SAS proc contents file
 ofile: a csv name for the output
