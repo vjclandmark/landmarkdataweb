@@ -9,4 +9,12 @@ The function will then compile the codebook and add the index. It is important t
 export TEXINPUTS=".:~/latex/:"
 export BIBINPUTS=".:~/latex/:"
 
-Future versions will help create the variable index from a sas proc contents, text file, or just manual entry.
+The new version contains a few functions to help create the variable info dataframes.
+	The function blankdd(df) creates a blank variable dataframe from the dataframe df.
+	The function parsesascontents(ifile,ofile,addallvars) reads a SAS proc contents file (ifile) and creates a csv (ofile) in the format of the variable data dictionary.
+		The option addallvars adds a column with all TRUES so that the file can be used to create a codebook immediately with one group using createcb().
+		If addallvars is set to FALSE, then you will need to add columns for group membership.
+
+One note: The reason the variable dataframe has an extra column is to make realistic use easier. The use case that lead to this package was a data dictionary that had a column for
+form that I used to create the variable groupings programmatically. This column could contain any information that might be useful in that vein and should be included for reproducibility
+
