@@ -2,7 +2,7 @@ Package: dwcodebook
 Version: 0.91
 Date: 2012-11-14
 Title: Landmark Data Web Codebook
-Author: BJ Harshfield, Ariana Huebner
+Author: BJ Harshfield, Ariana Huebner, Vincent Carey
 Maintainer: BJ Harshfield <rebjh@channing.harvard.edu>
 Depends: R (>= 2.14),xtable,ggplot2
 Description: R package for generating dataweb like codebooks 
