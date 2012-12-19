@@ -12,8 +12,8 @@ This package aims to create a simple DataWeb like codebook from dataframes. The 
 \tabular{ll}{
 Package: \tab dwcodebook\cr
 Type: \tab Package\cr
-Version: \tab 0.6\cr
-Date: \tab 2012-11-16\cr
+Version: \tab 0.91\cr
+Date: \tab 2012-12-19\cr
 License: \tab Artistic 2.0\cr
 }
 
@@ -21,7 +21,7 @@ createcb() creates the codebook and compiles it using pdflatex and mkindex. test
 
 }
 \author{
-Author: BJ Harshfield, Ariana Huebner
+Author: BJ Harshfield, Vince Carey, Ariana Huebner
 Maintainer: BJ Harshfield <rebjh@channing.harvard.edu>
 
 }
