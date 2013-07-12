@@ -22,7 +22,6 @@ Notes:
 
 The new version contains a few functions to help create the variable info dataframes.
 	The function blankdd(df) creates a blank variable dataframe from the dataframe df.
-	The function parsesascontents(ifile,ofile,addallvars) reads a SAS proc contents file (ifile) and creates a csv (ofile) in the format of the variable data dictionary.
 		The option addallvars adds a column with all TRUES so that the file can be used to create a codebook immediately with one group using createcb().
 		If addallvars is set to FALSE, then you will need to add columns for group membership.
 
